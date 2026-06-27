@@ -1,0 +1,508 @@
+/* ============================================================
+   ROOT VARIABLES - LARGER DESKTOP FONTS
+   ============================================================ */
+:root {
+  --primary: #4F46E5;
+  --primary-dark: #4338CA;
+  --secondary: #7C3AED;
+  --success: #10B981;
+  --danger: #EF4444;
+  --warning: #F59E0B;
+  --dark: #0F172A;
+  --gray: #64748B;
+  --light: #F1F5F9;
+  --white: #FFFFFF;
+  
+  /* LARGER FONT SIZES - Desktop Optimized */
+  --font-hero: clamp(2.5rem, 6vw, 4.5rem);
+  --font-title: clamp(1.8rem, 3.5vw, 3rem);
+  --font-subtitle: clamp(1.2rem, 1.8vw, 1.5rem);
+  --font-body: clamp(1.1rem, 1.4vw, 1.25rem);
+  --font-small: clamp(1rem, 1.2vw, 1.1rem);
+  --font-tiny: clamp(0.9rem, 1vw, 1rem);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;  /* Increased base font size */
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  line-height: 1.7;
+  font-size: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E2E8F0;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 6px;
+}
+
+/* ============================================================
+   HERO SECTION - LARGER
+   ============================================================ */
+.hero {
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+  padding: clamp(3rem, 10vh, 6rem) 0;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: -10%;
+  right: -10%;
+  height: 80px;
+  background: var(--light);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.hero h1 {
+  font-size: var(--font-hero);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+  color: white;
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(135deg, #FCD34D, #FBBF24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: var(--font-subtitle);
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: clamp(3rem, 6vw, 5rem);
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.hero-stat .number {
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 800;
+  display: block;
+  color: white;
+}
+
+.hero-stat .label {
+  font-size: var(--font-small);
+  opacity: 0.85;
+  color: white;
+}
+
+/* ============================================================
+   SECTION TITLES - LARGER
+   ============================================================ */
+.section-title {
+  font-size: var(--font-title);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: var(--dark);
+}
+
+.section-subtitle {
+  color: var(--gray);
+  font-size: var(--font-body);
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   CATEGORY CARDS - LARGER
+   ============================================================ */
+.category-card {
+  padding: clamp(1rem, 1.5vw, 1.8rem) clamp(0.75rem, 1.2vw, 1.2rem) !important;
+  border-radius: 16px !important;
+  background: white;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  height: 100%;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+.category-card.active {
+  border: 2px solid var(--primary) !important;
+  background: #EEF2FF !important;
+}
+
+.category-card .cat-icon {
+  font-size: clamp(2rem, 3vw, 3rem);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.category-card .cat-name {
+  font-size: var(--font-small);
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.2;
+}
+
+.category-card .cat-count {
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* ============================================================
+   COURSE CARDS - LARGER
+   ============================================================ */
+.course-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+}
+
+.course-card .image-wrapper {
+  position: relative;
+  height: clamp(12rem, 16vw, 16rem);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.course-card .image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-card .badge-top {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.75);
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: var(--font-tiny);
+  font-weight: 600;
+}
+
+.course-card .badge-price {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(79, 70, 229, 0.92);
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: var(--font-body);
+  font-weight: 700;
+}
+
+.course-card .body {
+  padding: clamp(1rem, 1.5vw, 1.5rem) clamp(1rem, 1.2vw, 1.25rem) clamp(1rem, 1.2vw, 1.25rem);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-card .title {
+  font-size: var(--font-body);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--dark);
+  line-height: 1.3;
+}
+
+.course-card .instructor {
+  color: var(--gray);
+  font-size: var(--font-small);
+  margin-bottom: 0.4rem;
+}
+
+.course-card .rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+  font-size: var(--font-small);
+}
+
+.course-card .rating svg {
+  font-size: 0.9rem;
+}
+
+.course-card .description {
+  color: #94A3B8;
+  font-size: var(--font-tiny);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  flex: 1;
+}
+
+.course-card .students {
+  font-size: var(--font-tiny);
+  color: #94A3B8;
+  margin-bottom: 0.75rem;
+}
+
+.course-card .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid #F1F5F9;
+  margin-top: auto;
+}
+
+.course-card .price {
+  font-size: var(--font-body);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.course-card .btn {
+  padding: 0.5rem 1.4rem;
+  font-size: var(--font-tiny);
+  border-radius: 30px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.course-card .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35);
+}
+
+/* ============================================================
+   BOOTSTRAP OVERRIDES - LARGER
+   ============================================================ */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+  border: none !important;
+  padding: 0.7rem 2rem !important;
+  font-weight: 600 !important;
+  font-size: var(--font-body) !important;
+  border-radius: 30px !important;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(79, 70, 229, 0.35) !important;
+}
+
+.btn-outline-light {
+  border: 2px solid white !important;
+  color: white !important;
+  font-size: var(--font-body) !important;
+  font-weight: 600 !important;
+  padding: 0.7rem 2rem !important;
+  border-radius: 30px !important;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255,255,255,0.15) !important;
+  transform: translateY(-2px);
+}
+
+.btn-light {
+  background: white !important;
+  color: var(--primary) !important;
+  font-weight: 600 !important;
+  font-size: var(--font-body) !important;
+  border: none !important;
+  padding: 0.7rem 2rem !important;
+  border-radius: 30px !important;
+}
+
+.btn-light:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1) !important;
+}
+
+/* ============================================================
+   DASHBOARD STATS - LARGER
+   ============================================================ */
+.dashboard-stat {
+  background: white;
+  border-radius: 18px;
+  padding: clamp(1rem, 1.8vw, 1.8rem);
+  text-align: center;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dashboard-stat .icon-wrapper {
+  width: clamp(3rem, 4vw, 4rem);
+  height: clamp(3rem, 4vw, 4rem);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dashboard-stat .stat-number {
+  font-size: clamp(1.5rem, 2.2vw, 2.2rem);
+  font-weight: 800;
+  display: block;
+}
+
+.dashboard-stat .stat-label {
+  color: var(--gray);
+  font-size: var(--font-small);
+  font-weight: 500;
+}
+
+/* ============================================================
+   AUTH CARDS - LARGER
+   ============================================================ */
+.auth-card {
+  background: white;
+  border-radius: 24px;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 3rem);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  max-width: 480px;
+  margin: 2rem auto;
+}
+
+.auth-card .title {
+  font-size: var(--font-title);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   RESPONSIVE - FINE TUNING
+   ============================================================ */
+@media (max-width: 1200px) {
+  html {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 16px;
+  }
+  
+  .hero {
+    padding: 2.5rem 0 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+  
+  .hero h1 {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .hero-stats {
+    gap: 1.5rem;
+  }
+  
+  .hero-stat .number {
+    font-size: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .course-card .image-wrapper {
+    height: 11rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .course-card .image-wrapper {
+    height: 9rem;
+  }
+  
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+  
+  .hero p {
+    font-size: 0.9rem;
+  }
+  
+  .category-card .cat-icon {
+    font-size: 1.5rem;
+  }
+  
+  .category-card .cat-name {
+    font-size: 0.75rem;
+  }
+}
