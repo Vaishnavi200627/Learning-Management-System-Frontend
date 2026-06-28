@@ -37,204 +37,434 @@ const Home = () => {
     categoryCounts[c.category] = (categoryCounts[c.category] || 0) + 1;
   });
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const statVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  };
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.05,
+      boxShadow: "0 8px 25px rgba(79, 70, 229, 0.4)",
+      transition: { duration: 0.2 }
+    },
+    tap: {
+      scale: 0.95
+    }
+  };
+
   return (
     <div style={{ background: '#F1F5F9', minHeight: '100vh' }}>
-      {/* ============ HERO ============ */}
-      <section className="hero">
-        <Container fluid style={{ maxWidth: '1400px' }}>
+      {/* ============ HERO - ANIMATED ============ */}
+      <motion.section 
+        className="hero"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        style={{ padding: '80px 0 60px', textAlign: 'center' }}
+      >
+        <Container fluid style={{ maxWidth: '1440px' }}>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
           >
             <motion.h1
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              variants={itemVariants}
+              style={{ 
+                fontSize: '64px', 
+                fontWeight: 800, 
+                marginBottom: '12px',
+                letterSpacing: '-2px',
+                color: 'white'
+              }}
             >
-              Learn <span className="highlight">Anything</span>,<br />
-              <span className="highlight">Anywhere</span>
+              Learn <motion.span
+                style={{ 
+                  background: 'linear-gradient(135deg, #FCD34D, #FBBF24)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  display: 'inline-block'
+                }}
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                  transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                }}
+              >
+                Anything
+              </motion.span>
+              ,<br />
+              <motion.span
+                style={{ 
+                  background: 'linear-gradient(135deg, #FCD34D, #FBBF24)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  display: 'inline-block'
+                }}
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                  transition: { duration: 3, delay: 1.5, repeat: Infinity, ease: "easeInOut" }
+                }}
+              >
+                Anywhere
+              </motion.span>
             </motion.h1>
+
             <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
+              variants={itemVariants}
+              style={{ 
+                fontSize: '22px', 
+                marginBottom: '28px', 
+                opacity: 0.9, 
+                color: 'white',
+                maxWidth: '700px',
+                margin: '0 auto 28px'
+              }}
             >
               Join 10,000+ students learning new skills online
             </motion.p>
+
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
+              variants={itemVariants}
               className="d-flex gap-3 justify-content-center flex-wrap"
             >
-              <Button as={Link} to="/courses" variant="light">
-                Explore Courses
-              </Button>
+              <motion.div
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+              >
+                <Button as={Link} to="/courses" variant="light" className="px-5 py-3 fw-bold rounded-pill" style={{ fontSize: '18px' }}>
+                  Explore Courses
+                </Button>
+              </motion.div>
               {!isAuthenticated ? (
-                <Button as={Link} to="/register" variant="outline-light">
-                  Get Started Free
-                </Button>
+                <motion.div
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                >
+                  <Button as={Link} to="/register" variant="outline-light" className="px-5 py-3 fw-bold rounded-pill" style={{ fontSize: '18px' }}>
+                    Get Started Free
+                  </Button>
+                </motion.div>
               ) : (
-                <Button as={Link} to="/dashboard" variant="outline-light">
-                  Dashboard
-                </Button>
+                <motion.div
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                >
+                  <Button as={Link} to="/dashboard" variant="outline-light" className="px-5 py-3 fw-bold rounded-pill" style={{ fontSize: '18px' }}>
+                    Dashboard
+                  </Button>
+                </motion.div>
               )}
             </motion.div>
 
+            {/* Animated Stats */}
             <motion.div 
               className="hero-stats"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              style={{ 
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '80px',
+                marginTop: '40px',
+                flexWrap: 'wrap'
+              }}
             >
-              <div className="hero-stat">
-                <span className="number">10K+</span>
-                <span className="label">Students</span>
-              </div>
-              <div className="hero-stat">
-                <span className="number">50+</span>
-                <span className="label">Courses</span>
-              </div>
-              <div className="hero-stat">
-                <span className="number">20+</span>
-                <span className="label">Instructors</span>
-              </div>
+              {[
+                { number: '10K+', label: 'Students' },
+                { number: '50+', label: 'Courses' },
+                { number: '20+', label: 'Instructors' }
+              ].map((stat, index) => (
+                <motion.div 
+                  key={index}
+                  className="hero-stat"
+                  variants={statVariants}
+                  whileHover={{ 
+                    y: -8,
+                    scale: 1.05,
+                    transition: { duration: 0.2 }
+                  }}
+                  style={{ cursor: 'default' }}
+                >
+                  <motion.span 
+                    className="number" 
+                    style={{ 
+                      fontSize: '36px', 
+                      fontWeight: 800, 
+                      color: 'white',
+                      display: 'block'
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 + (index * 0.2), duration: 0.8 }}
+                  >
+                    {stat.number}
+                  </motion.span>
+                  <span className="label" style={{ fontSize: '15px', opacity: 0.8, color: 'white' }}>
+                    {stat.label}
+                  </span>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
         </Container>
-      </section>
+      </motion.section>
 
-      {/* ============ CATEGORIES ============ */}
-      <Container fluid style={{ maxWidth: '1400px', padding: '0 1.5rem' }}>
+      {/* ============ CATEGORIES - ANIMATED ============ */}
+      <Container fluid style={{ maxWidth: '1440px', padding: '0 32px' }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          style={{ marginTop: '32px', marginBottom: '32px' }}
         >
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            marginBottom: '1rem',
-            flexWrap: 'wrap'
-          }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              marginBottom: '20px'
+            }}
+          >
             <div>
-              <h2 className="section-title">📚 Browse by Category</h2>
-              <p className="section-subtitle" style={{ marginBottom: 0 }}>
+              <h2 style={{ fontSize: '32px', fontWeight: 700, marginBottom: 0, color: '#1E293B' }}>
+                📚 Browse by Category
+              </h2>
+              <p style={{ color: '#94A3B8', fontSize: '16px', marginBottom: 0 }}>
                 Find the perfect course for your learning journey
               </p>
             </div>
             <span style={{ 
               color: '#94A3B8', 
-              fontSize: 'var(--font-tiny)',
+              fontSize: '15px',
               background: 'white',
-              padding: '0.4rem 1.2rem',
+              padding: '8px 20px',
               borderRadius: '30px',
               boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
             }}>
               {courses.length} total courses
             </span>
-          </div>
+          </motion.div>
 
-          <Row className="g-2 g-md-3">
-            <Col xs={4} sm={3} md={2} lg={1.5} key="all">
+          <motion.div
+            className="row g-3"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+          >
+            <motion.div className="col-6 col-sm-4 col-md-3 col-lg-2" variants={itemVariants}>
               <motion.div
                 className={`category-card ${selectedCategory === 'all' ? 'active' : ''}`}
                 onClick={() => setSelectedCategory('all')}
-                whileHover={{ y: -3 }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+                style={{ 
+                  padding: '20px 16px !important', 
+                  borderRadius: '14px !important',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  background: selectedCategory === 'all' ? '#EEF2FF' : 'white',
+                  border: selectedCategory === 'all' ? '2px solid #4F46E5' : '1px solid #E2E8F0',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                  transition: 'all 0.2s ease'
+                }}
               >
-                <span className="cat-icon">📚</span>
-                <div className="cat-name">All</div>
-                <div className="cat-count">{courses.length}</div>
+                <motion.span 
+                  style={{ fontSize: '32px', display: 'block', marginBottom: '4px' }}
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  📚
+                </motion.span>
+                <div style={{ fontSize: '14px', fontWeight: 600, color: '#1E293B' }}>All</div>
+                <div style={{ fontSize: '20px', fontWeight: 700, color: '#4F46E5' }}>
+                  {courses.length}
+                </div>
               </motion.div>
-            </Col>
+            </motion.div>
             {categories.map(cat => (
-              <Col xs={4} sm={3} md={2} lg={1.5} key={cat.id}>
+              <motion.div key={cat.id} className="col-6 col-sm-4 col-md-3 col-lg-2" variants={itemVariants}>
                 <motion.div
                   className={`category-card ${selectedCategory === cat.name ? 'active' : ''}`}
                   onClick={() => setSelectedCategory(cat.name)}
-                  whileHover={{ y: -3 }}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                  style={{ 
+                    padding: '20px 16px !important', 
+                    borderRadius: '14px !important',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    background: selectedCategory === cat.name ? '#EEF2FF' : 'white',
+                    border: selectedCategory === cat.name ? '2px solid #4F46E5' : '1px solid #E2E8F0',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                    transition: 'all 0.2s ease'
+                  }}
                 >
-                  <span className="cat-icon">{cat.icon}</span>
-                  <div className="cat-name">{cat.name}</div>
-                  <div className="cat-count">{categoryCounts[cat.name] || 0}</div>
+                  <motion.span 
+                    style={{ fontSize: '32px', display: 'block', marginBottom: '4px' }}
+                    whileHover={{ rotate: 10, scale: 1.1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {cat.icon}
+                  </motion.span>
+                  <div style={{ fontSize: '13px', fontWeight: 600, color: '#1E293B', lineHeight: 1.2, marginBottom: '2px' }}>
+                    {cat.name}
+                  </div>
+                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#4F46E5' }}>
+                    {categoryCounts[cat.name] || 0}
+                  </div>
                 </motion.div>
-              </Col>
+              </motion.div>
             ))}
-          </Row>
+          </motion.div>
         </motion.div>
 
-        {/* ============ COURSES ============ */}
+        {/* ============ COURSES - ANIMATED ============ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            marginBottom: '1rem',
-            flexWrap: 'wrap'
-          }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              marginBottom: '20px',
+              marginTop: '8px'
+            }}
+          >
             <div>
-              <h2 className="section-title" style={{ marginBottom: 0 }}>
+              <h2 style={{ fontSize: '28px', fontWeight: 700, marginBottom: 0, color: '#1E293B' }}>
                 {selectedCategory === 'all' ? 'All Courses' : `${selectedCategory} Courses`}
               </h2>
-              <p className="section-subtitle" style={{ marginBottom: 0, fontSize: 'var(--font-tiny)' }}>
+              <p style={{ color: '#94A3B8', fontSize: '15px', marginBottom: 0 }}>
                 {filteredCourses.length} courses available
               </p>
             </div>
             {selectedCategory !== 'all' && (
-              <Button 
-                variant="outline-primary" 
-                onClick={() => setSelectedCategory('all')}
-                size="sm"
-                className="rounded-pill"
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                View All
-              </Button>
+                <Button 
+                  variant="outline-primary" 
+                  onClick={() => setSelectedCategory('all')}
+                  className="rounded-pill"
+                  size="sm"
+                >
+                  View All
+                </Button>
+              </motion.div>
             )}
-          </div>
+          </motion.div>
 
           {loading ? (
-            <Row className="g-3 g-md-4">
+            <Row className="g-4">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
                 <Col key={index} xs={12} sm={6} md={4} lg={3} xl={2.4}>
-                  <div className="course-card" style={{ height: '280px', background: '#f0f2f5' }}>
-                    <div style={{ height: '160px', background: '#e2e8f0', borderRadius: '16px 16px 0 0' }} />
-                    <div className="body">
-                      <div style={{ height: '16px', width: '80%', background: '#e2e8f0', borderRadius: '4px', marginBottom: '6px' }} />
-                      <div style={{ height: '12px', width: '60%', background: '#e2e8f0', borderRadius: '4px' }} />
-                    </div>
-                  </div>
-                </Col>
-              ))}
-            </Row>
-          ) : filteredCourses.length === 0 ? (
-            <div className="text-center py-5" style={{ background: 'white', borderRadius: '16px', padding: '3rem' }}>
-              <span style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem' }}>📚</span>
-              <h3>No courses in this category yet</h3>
-              <p className="text-muted">Check back later for new courses!</p>
-            </div>
-          ) : (
-            <Row className="g-3 g-md-4">
-              {filteredCourses.map(course => (
-                <Col key={course._id} xs={12} sm={6} md={4} lg={3} xl={2.4}>
                   <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                    whileHover={{ y: -4 }}
-                    style={{ height: '100%' }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05, duration: 0.3 }}
                   >
-                    <CourseCard course={course} />
+                    <div className="course-card" style={{ height: '320px', background: '#f0f2f5' }}>
+                      <div style={{ height: '180px', background: '#e2e8f0', borderRadius: '16px 16px 0 0' }} />
+                      <div className="body">
+                        <div style={{ height: '16px', width: '80%', background: '#e2e8f0', borderRadius: '4px', marginBottom: '6px' }} />
+                        <div style={{ height: '12px', width: '60%', background: '#e2e8f0', borderRadius: '4px' }} />
+                      </div>
+                    </div>
                   </motion.div>
                 </Col>
               ))}
             </Row>
+          ) : filteredCourses.length === 0 ? (
+            <motion.div 
+              className="text-center py-5" 
+              style={{ background: 'white', borderRadius: '16px', padding: '60px' }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+            >
+              <span style={{ fontSize: '56px', display: 'block', marginBottom: '16px' }}>📚</span>
+              <h3>No courses in this category yet</h3>
+              <p className="text-muted">Check back later for new courses!</p>
+              {selectedCategory !== 'all' && (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button 
+                    variant="primary" 
+                    onClick={() => setSelectedCategory('all')}
+                    className="rounded-pill px-4 mt-3"
+                  >
+                    View All Courses
+                  </Button>
+                </motion.div>
+              )}
+            </motion.div>
+          ) : (
+            <motion.div
+              className="row g-4"
+              initial="hidden"
+              animate="visible"
+              variants={containerVariants}
+            >
+              {filteredCourses.map(course => (
+                <motion.div 
+                  key={course._id} 
+                  className="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2-4"
+                  variants={itemVariants}
+                >
+                  <motion.div
+                    whileHover={{ y: -6 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ height: '100%' }}
+                  >
+                    <CourseCard course={course} />
+                  </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
           )}
         </motion.div>
       </Container>
