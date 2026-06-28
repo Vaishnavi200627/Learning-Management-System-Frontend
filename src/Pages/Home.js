@@ -37,63 +37,113 @@ const Home = () => {
     categoryCounts[c.category] = (categoryCounts[c.category] || 0) + 1;
   });
 
-  // Animation variants
+  // ============ ANIMATION VARIANTS ============
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.08,
         delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 40, opacity: 0, scale: 0.9 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
-
-  const statVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
       scale: 1,
-      opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" }
+      transition: { 
+        duration: 0.6, 
+        ease: "easeOut",
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
     }
   };
 
-  const buttonVariants = {
-    hover: {
-      scale: 1.05,
-      boxShadow: "0 8px 25px rgba(79, 70, 229, 0.4)",
-      transition: { duration: 0.2 }
-    },
-    tap: {
-      scale: 0.95
+  // ============ PULSE ANIMATION ============
+  const pulseVariants = {
+    pulse: {
+      scale: [1, 1.08, 1],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  // ============ FLOATING STATS ============
+  const floatVariants = {
+    float: (i) => ({
+      y: [0, -12, 0],
+      transition: {
+        duration: 2.5,
+        delay: i * 0.3,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    })
+  };
+
+  // ============ GLOW BUTTON ============
+  const glowVariants = {
+    glow: {
+      boxShadow: [
+        "0 0 15px rgba(79, 70, 229, 0.3)",
+        "0 0 35px rgba(79, 70, 229, 0.6)",
+        "0 0 15px rgba(79, 70, 229, 0.3)"
+      ],
+      transition: {
+        duration: 1.8,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
     }
   };
 
   return (
     <div style={{ background: '#F1F5F9', minHeight: '100vh' }}>
-      {/* ============ HERO - ANIMATED ============ */}
+      {/* ============ HERO SECTION ============ */}
       <motion.section 
         className="hero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        style={{ padding: '80px 0 60px', textAlign: 'center' }}
+        style={{ padding: '80px 0 60px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}
       >
-        <Container fluid style={{ maxWidth: '1440px' }}>
+        {/* Animated Background Particles */}
+        <motion.div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+
+        <Container fluid style={{ maxWidth: '1440px', position: 'relative', zIndex: 1 }}>
           <motion.div
             initial="hidden"
             animate="visible"
             variants={containerVariants}
           >
+            {/* ===== HERO TITLE WITH PULSE ===== */}
             <motion.h1
               variants={itemVariants}
               style={{ 
@@ -104,7 +154,8 @@ const Home = () => {
                 color: 'white'
               }}
             >
-              Learn <motion.span
+              Learn{" "}
+              <motion.span
                 style={{ 
                   background: 'linear-gradient(135deg, #FCD34D, #FBBF24)',
                   WebkitBackgroundClip: 'text',
@@ -112,9 +163,14 @@ const Home = () => {
                   backgroundClip: 'text',
                   display: 'inline-block'
                 }}
-                animate={{ 
-                  scale: [1, 1.05, 1],
-                  transition: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                animate={{
+                  scale: [1, 1.15, 1],
+                  rotate: [-2, 2, -2],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
                 }}
               >
                 Anything
@@ -128,15 +184,22 @@ const Home = () => {
                   backgroundClip: 'text',
                   display: 'inline-block'
                 }}
-                animate={{ 
-                  scale: [1, 1.05, 1],
-                  transition: { duration: 3, delay: 1.5, repeat: Infinity, ease: "easeInOut" }
+                animate={{
+                  scale: [1, 1.15, 1],
+                  rotate: [2, -2, 2],
+                }}
+                transition={{
+                  duration: 3,
+                  delay: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
                 }}
               >
                 Anywhere
               </motion.span>
             </motion.h1>
 
+            {/* ===== HERO SUBTITLE ===== */}
             <motion.p
               variants={itemVariants}
               style={{ 
@@ -151,14 +214,16 @@ const Home = () => {
               Join 10,000+ students learning new skills online
             </motion.p>
 
+            {/* ===== HERO BUTTONS WITH GLOW ===== */}
             <motion.div
               variants={itemVariants}
               className="d-flex gap-3 justify-content-center flex-wrap"
             >
               <motion.div
-                variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
+                variants={glowVariants}
+                animate="glow"
               >
                 <Button as={Link} to="/courses" variant="light" className="px-5 py-3 fw-bold rounded-pill" style={{ fontSize: '18px' }}>
                   Explore Courses
@@ -166,9 +231,8 @@ const Home = () => {
               </motion.div>
               {!isAuthenticated ? (
                 <motion.div
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
                 >
                   <Button as={Link} to="/register" variant="outline-light" className="px-5 py-3 fw-bold rounded-pill" style={{ fontSize: '18px' }}>
                     Get Started Free
@@ -176,9 +240,8 @@ const Home = () => {
                 </motion.div>
               ) : (
                 <motion.div
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
                 >
                   <Button as={Link} to="/dashboard" variant="outline-light" className="px-5 py-3 fw-bold rounded-pill" style={{ fontSize: '18px' }}>
                     Dashboard
@@ -187,7 +250,7 @@ const Home = () => {
               )}
             </motion.div>
 
-            {/* Animated Stats */}
+            {/* ===== HERO STATS WITH FLOATING ===== */}
             <motion.div 
               className="hero-stats"
               variants={containerVariants}
@@ -209,10 +272,11 @@ const Home = () => {
                 <motion.div 
                   key={index}
                   className="hero-stat"
-                  variants={statVariants}
+                  custom={index}
+                  variants={floatVariants}
+                  animate="float"
                   whileHover={{ 
-                    y: -8,
-                    scale: 1.05,
+                    scale: 1.15,
                     transition: { duration: 0.2 }
                   }}
                   style={{ cursor: 'default' }}
@@ -225,9 +289,9 @@ const Home = () => {
                       color: 'white',
                       display: 'block'
                     }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 + (index * 0.2), duration: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 + (index * 0.2), duration: 0.8, type: "spring" }}
                   >
                     {stat.number}
                   </motion.span>
@@ -241,17 +305,17 @@ const Home = () => {
         </Container>
       </motion.section>
 
-      {/* ============ CATEGORIES - ANIMATED ============ */}
+      {/* ============ CATEGORIES ============ */}
       <Container fluid style={{ maxWidth: '1440px', padding: '0 32px' }}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          transition={{ delay: 0.3, duration: 0.6, type: "spring", stiffness: 80 }}
           style={{ marginTop: '32px', marginBottom: '32px' }}
         >
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
             style={{ 
               display: 'flex', 
@@ -268,16 +332,26 @@ const Home = () => {
                 Find the perfect course for your learning journey
               </p>
             </div>
-            <span style={{ 
-              color: '#94A3B8', 
-              fontSize: '15px',
-              background: 'white',
-              padding: '8px 20px',
-              borderRadius: '30px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-            }}>
+            <motion.span 
+              style={{ 
+                color: '#94A3B8', 
+                fontSize: '15px',
+                background: 'white',
+                padding: '8px 20px',
+                borderRadius: '30px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+              }}
+              animate={{
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
               {courses.length} total courses
-            </span>
+            </motion.span>
           </motion.div>
 
           <motion.div
@@ -290,8 +364,13 @@ const Home = () => {
               <motion.div
                 className={`category-card ${selectedCategory === 'all' ? 'active' : ''}`}
                 onClick={() => setSelectedCategory('all')}
-                whileHover={{ y: -6, scale: 1.02 }}
-                transition={{ duration: 0.2 }}
+                whileHover={{ 
+                  y: -10, 
+                  scale: 1.05,
+                  boxShadow: "0 12px 30px rgba(79, 70, 229, 0.2)",
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.95 }}
                 style={{ 
                   padding: '20px 16px !important', 
                   borderRadius: '14px !important',
@@ -305,8 +384,15 @@ const Home = () => {
               >
                 <motion.span 
                   style={{ fontSize: '32px', display: 'block', marginBottom: '4px' }}
-                  whileHover={{ rotate: 10, scale: 1.1 }}
-                  transition={{ duration: 0.2 }}
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 10, -10, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
                 >
                   📚
                 </motion.span>
@@ -321,8 +407,13 @@ const Home = () => {
                 <motion.div
                   className={`category-card ${selectedCategory === cat.name ? 'active' : ''}`}
                   onClick={() => setSelectedCategory(cat.name)}
-                  whileHover={{ y: -6, scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                  whileHover={{ 
+                    y: -10, 
+                    scale: 1.05,
+                    boxShadow: "0 12px 30px rgba(79, 70, 229, 0.2)",
+                    transition: { duration: 0.2 }
+                  }}
+                  whileTap={{ scale: 0.95 }}
                   style={{ 
                     padding: '20px 16px !important', 
                     borderRadius: '14px !important',
@@ -336,32 +427,53 @@ const Home = () => {
                 >
                   <motion.span 
                     style={{ fontSize: '32px', display: 'block', marginBottom: '4px' }}
-                    whileHover={{ rotate: 10, scale: 1.1 }}
-                    transition={{ duration: 0.2 }}
+                    whileHover={{ 
+                      scale: 1.3,
+                      rotate: 15,
+                      transition: { duration: 0.2 }
+                    }}
+                    animate={{
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
                   >
                     {cat.icon}
                   </motion.span>
                   <div style={{ fontSize: '13px', fontWeight: 600, color: '#1E293B', lineHeight: 1.2, marginBottom: '2px' }}>
                     {cat.name}
                   </div>
-                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#4F46E5' }}>
+                  <motion.div 
+                    style={{ fontSize: '20px', fontWeight: 700, color: '#4F46E5' }}
+                    animate={{
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
                     {categoryCounts[cat.name] || 0}
-                  </div>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             ))}
           </motion.div>
         </motion.div>
 
-        {/* ============ COURSES - ANIMATED ============ */}
+        {/* ============ COURSES ============ */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+          transition={{ delay: 0.5, duration: 0.6, type: "spring", stiffness: 80 }}
         >
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
             style={{ 
               display: 'flex', 
@@ -381,8 +493,8 @@ const Home = () => {
             </div>
             {selectedCategory !== 'all' && (
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.92 }}
               >
                 <Button 
                   variant="outline-primary" 
@@ -422,15 +534,28 @@ const Home = () => {
               style={{ background: 'white', borderRadius: '16px', padding: '60px' }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.5, type: "spring" }}
             >
-              <span style={{ fontSize: '56px', display: 'block', marginBottom: '16px' }}>📚</span>
+              <motion.span 
+                style={{ fontSize: '56px', display: 'block', marginBottom: '16px' }}
+                animate={{
+                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                📚
+              </motion.span>
               <h3>No courses in this category yet</h3>
               <p className="text-muted">Check back later for new courses!</p>
               {selectedCategory !== 'all' && (
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
                 >
                   <Button 
                     variant="primary" 
@@ -456,8 +581,11 @@ const Home = () => {
                   variants={itemVariants}
                 >
                   <motion.div
-                    whileHover={{ y: -6 }}
-                    transition={{ duration: 0.2 }}
+                    whileHover={{ 
+                      y: -10,
+                      scale: 1.02,
+                      transition: { duration: 0.2 }
+                    }}
                     style={{ height: '100%' }}
                   >
                     <CourseCard course={course} />
