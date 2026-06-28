@@ -8,28 +8,28 @@ A modern, responsive Learning Management System built with React.js.
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](Home.png)
+![Home Page](screenshots/Home.png)
 
 ### Courses Page
-![Courses Page](Course.png)
+![Courses Page](screenshots/Course.png)
 
 ### Dashboard
-![Dashboard](Dashboard.png)
+![Dashboard](screenshots/Dashboard.png)
 
 ### Course Management
-![Course Management](CourseMangement.png)
+![Course Management](screenshots/CourseManagement.png)
 
 ### Course Content
-![Course Content](CourseContent.png)
+![Course Content](screenshots/CourseContent.png)
 
 ### Lesson Management
-![Lesson Management](LessonManagement.png)
+![Lesson Management](screenshots/LessonManagement.png)
 
 ### Analytics
-![Analytics](Analytics.png)
+![Analytics](screenshots/Analytics.png)
 
 ### Settings
-![Settings](Setting.png)
+![Settings](screenshots/Setting.png)
 
 ## ✨ Features
 
