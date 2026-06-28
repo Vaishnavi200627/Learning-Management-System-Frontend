@@ -15,12 +15,13 @@ import CourseDetails from './Pages/CourseDetails';
 import CreateCourse from './Pages/CreateCourse';
 import ManageCourse from './Pages/ManageCourse';
 import './index.css';
-
+import Chatbot from './Components/Chatbot';
 function App() {
   return (
     <Router>
       <AuthProvider>
         <Navbar />
+        <Chatbot/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
