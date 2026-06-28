@@ -4,7 +4,8 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm run build",
+        "installCommand": "npm install",
+        "buildCommand": "npx react-scripts build",
         "outputDirectory": "build"
       }
     }
